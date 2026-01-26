@@ -1,0 +1,31 @@
+'use client'
+import { AppBar, Box, Button, Container, Toolbar, Typography} from "@mui/material";
+import { SignUp } from "@clerk/nextjs";
+
+export default function Register() {
+    return (
+    <Container maxWidth={false} disableGutters>
+        <AppBar position = "fixed" sx={{ backgroundColor: '#4272FF', boxShadow: 'none' }} >
+            <Toolbar>
+                <Typography variant = 'h5' sx = {{ fontSize: 30, fontWeight: 'bold', color: '#fff', flexGrow: 1 }} >
+                    Cardify
+                </Typography>
+                <Button variant="outlined" color = "inherit" href="/sign-in" sx={{ borderRadius: 3, textTransform: 'none'}}> Log In </Button>
+                <Button variant="outlined" color = "inherit" href="/sign-up" sx={{ ml: 2, borderRadius: 3, textTransform: 'none'}}> Sign Up </Button>
+            </Toolbar>
+        </AppBar>
+        <Box 
+            sx={{ 
+                minHeight: '100vh', 
+                backgroundColor: '#ebebeb',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center'
+            }}
+            >   
+                <SignUp />
+        </Box>
+    </Container>
+    )
+}

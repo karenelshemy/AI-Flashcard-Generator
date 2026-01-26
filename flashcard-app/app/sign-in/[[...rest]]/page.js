@@ -2,7 +2,7 @@
 import { AppBar, Box, Button, Container, Toolbar, Typography} from "@mui/material";
 import { SignIn } from "@clerk/nextjs";
 
-export default function Login() {
+export default function LogIn() {
     return (
     <Container maxWidth={false} disableGutters>
         <AppBar position = "static" sx={{ backgroundColor: '#4272FF', boxShadow: 'none' }} >
