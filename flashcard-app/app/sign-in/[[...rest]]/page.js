@@ -5,19 +5,19 @@ import { SignIn } from "@clerk/nextjs";
 export default function LogIn() {
     return (
     <Container maxWidth={false} disableGutters>
-        <AppBar position = "static" sx={{ backgroundColor: '#4272FF', boxShadow: 'none' }} >
+        <AppBar position = "static" sx={{ backgroundColor: 'white', boxShadow: 'none' }} >
             <Toolbar>
-                <Typography variant = 'h5' sx = {{ fontSize: 30, fontWeight: 'bold', color: '#fff', flexGrow: 1 }} >
+                <Typography component = "a" variant = 'h5' href="/" sx = {{ fontSize: 30, fontWeight: 'bold', color: '#4272FF', flexGrow: 1, cursor: 'pointer', textDecoration: 'none'}} >
                     Cardify
                 </Typography>
-                <Button variant="outlined" color = "inherit" href="/sign-in" sx={{ borderRadius: 3, textTransform: 'none'}}> Log In </Button>
-                <Button variant="outlined" color = "inherit" href="/sign-up" sx={{ ml: 2, borderRadius: 3, textTransform: 'none'}}> Sign Up </Button>
+                <Button variant="outlined" href="/sign-in" sx={{ borderRadius: 3, textTransform: 'none', color: 'white', backgroundColor: '#4272FF'}}> Log In </Button>
+                <Button variant="outlined" href="/sign-up" sx={{ ml: 2, borderRadius: 3, textTransform: 'none', color: 'white', backgroundColor: '#4272FF'}}> Sign Up </Button>
             </Toolbar>
         </AppBar>
         <Box 
             sx={{ 
                 minHeight: '100vh', 
-                backgroundColor: '#ebebeb',
+                background: 'linear-gradient(to bottom right, #89CFF0, #A084E8)',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
