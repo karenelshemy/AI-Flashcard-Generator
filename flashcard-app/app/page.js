@@ -7,9 +7,10 @@ export default function Home() {
     <Box sx={{ minHeight: '100vh', backgroundColor: 'white' }} >
       <AppBar position="fixed" sx={{ backgroundColor: 'white', boxShadow: 'none' }}>
           <Toolbar sx={{ maxWidth: 1200, mx: 'auto', width: '100%' }}>
-            <Typography component = "a" variant = 'h5' href="/" sx = {{ fontSize: 30, fontWeight: 'bold', color: '#4272FF', flexGrow: 1, cursor: 'pointer', textDecoration: 'none'}} >
-              Cardify
+            <Typography component = "a" variant = 'h5' href="/" sx = {{ fontSize: 30, fontWeight: 'bold', color: '#4272FF', cursor: 'pointer', textDecoration: 'none'}} >
+                Cardify
             </Typography>
+            <Box sx={{ flexGrow: 1}} />
             <SignedOut>
               <Button variant="contained" href="/sign-in" sx={{ borderRadius: 3, textTransform: 'none', color: 'white', backgroundColor: '#4272FF'}}>Log In</Button>
               <Button variant="contained" href="/sign-up" sx={{ ml: 2, borderRadius: 3, textTransform: 'none', color: 'white', backgroundColor: '#4272FF' }}>Sign Up</Button>
@@ -37,7 +38,7 @@ export default function Home() {
           <Typography sx={{ fontSize: 20, mt: 1 }}>
             Type in any topic you want to learn, and with just one click, let AI generate flashcards within seconds.
           </Typography>
-          <Button variant="contained" sx={{ mt: 2, padding: '10px 20px', borderRadius: 3, textTransform: 'none', color: 'white', backgroundColor: 'black'}}>Try It Out</Button>
+          <Button variant="contained" href="/flashcard-generator" sx={{ mt: 2, padding: '10px 20px', borderRadius: 3, textTransform: 'none', color: 'white', backgroundColor: 'black'}}>Try It Out</Button>
         </Box>
       </Box>
       <Box sx={{ mt: 8, mx: 'auto', maxWidth: 1000, p: 2, borderRadius: 5, background: 'linear-gradient(to bottom right, #89CFF0, #A084E8)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 4 }}>

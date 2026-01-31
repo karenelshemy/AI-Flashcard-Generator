@@ -7,9 +7,10 @@ export default function Register() {
     <Container maxWidth={false} disableGutters>
         <AppBar position = "fixed" sx={{ backgroundColor: 'white', boxShadow: 'none' }} >
             <Toolbar>
-                <Typography component = "a" variant = 'h5' href="/" sx = {{ fontSize: 30, fontWeight: 'bold', color: '#4272FF', flexGrow: 1, cursor: 'pointer', textDecoration: 'none'}} >
+                <Typography component = "a" variant = 'h5' href="/" sx = {{ fontSize: 30, fontWeight: 'bold', color: '#4272FF', cursor: 'pointer', textDecoration: 'none'}} >
                     Cardify
                 </Typography>
+                <Box sx={{ flexGrow: 1}} />
                 <Button variant="contained" href="/sign-in" sx={{ borderRadius: 3, textTransform: 'none', color: 'white', backgroundColor: '#4272FF' }}> Log In </Button>
                 <Button variant="contained" href="/sign-up" sx={{ ml: 2, borderRadius: 3, textTransform: 'none', color: 'white', backgroundColor: '#4272FF' }}> Sign Up </Button>
             </Toolbar>

@@ -7,9 +7,10 @@ export default function LogIn() {
     <Container maxWidth={false} disableGutters>
         <AppBar position = "static" sx={{ backgroundColor: 'white', boxShadow: 'none' }} >
             <Toolbar>
-                <Typography component = "a" variant = 'h5' href="/" sx = {{ fontSize: 30, fontWeight: 'bold', color: '#4272FF', flexGrow: 1, cursor: 'pointer', textDecoration: 'none'}} >
+                <Typography component = "a" variant = 'h5' href="/" sx = {{ fontSize: 30, fontWeight: 'bold', color: '#4272FF', cursor: 'pointer', textDecoration: 'none'}} >
                     Cardify
                 </Typography>
+                <Box sx={{ flexGrow: 1}} />
                 <Button variant="outlined" href="/sign-in" sx={{ borderRadius: 3, textTransform: 'none', color: 'white', backgroundColor: '#4272FF'}}> Log In </Button>
                 <Button variant="outlined" href="/sign-up" sx={{ ml: 2, borderRadius: 3, textTransform: 'none', color: 'white', backgroundColor: '#4272FF'}}> Sign Up </Button>
             </Toolbar>
