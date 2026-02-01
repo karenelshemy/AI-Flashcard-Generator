@@ -6,7 +6,7 @@ export default function Register() {
     return (
     <Container maxWidth={false} disableGutters>
         <AppBar position = "fixed" sx={{ backgroundColor: 'white', boxShadow: 'none' }} >
-            <Toolbar>
+            <Toolbar sx={{ maxWidth: 1200, mx: 'auto', width: '100%' }}>
                 <Typography component = "a" variant = 'h5' href="/" sx = {{ fontSize: 30, fontWeight: 'bold', color: '#4272FF', cursor: 'pointer', textDecoration: 'none'}} >
                     Cardify
                 </Typography>

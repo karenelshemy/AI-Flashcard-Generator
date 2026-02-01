@@ -1,9 +1,9 @@
 'use client' 
-import { useUser } from '@clerk/nextjs'
+import { useUser } from '@clerk/nextjs';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
-import { AppBar, Box, Button, Toolbar, TextField, Typography} from "@mui/material";
+import { AppBar, Box, Button, CircularProgress, Toolbar, TextField, Typography} from "@mui/material";
 
 export default function FlashcardGenerator() {
     const { isSignedIn, user, isLoaded } = useUser(); 
@@ -19,6 +19,32 @@ export default function FlashcardGenerator() {
         }
     }, [isLoaded, isSignedIn, router])
 
+    if (!isLoaded || !isSignedIn) {
+        return (
+        <Box>
+            <AppBar position="fixed" sx={{ backgroundColor: 'white', boxShadow: 'none' }}>
+                <Toolbar sx={{ maxWidth: 1200, mx: 'auto', width: '100%' }}>
+                    <Typography component = "a" variant = 'h5' href="/" sx = {{ fontSize: 30, fontWeight: 'bold', color: '#4272FF', cursor: 'pointer', textDecoration: 'none'}} >
+                    Cardify
+                    </Typography>
+                    <Box sx={{ flexGrow: 1}} />
+                    <SignedOut>
+                    <Button variant="contained" href="/sign-in" sx={{ borderRadius: 3, textTransform: 'none', color: 'white', backgroundColor: '#4272FF'}}>Log In</Button>
+                    <Button variant="contained" href="/sign-up" sx={{ ml: 2, borderRadius: 3, textTransform: 'none', color: 'white', backgroundColor: '#4272FF' }}>Sign Up</Button>
+                    </SignedOut>
+                    <SignedIn>
+                    <UserButton />
+                    </SignedIn>
+                </Toolbar>
+            </AppBar>
+            <Toolbar />
+            <Box sx={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'white'}} >
+                <CircularProgress color="black"/>
+            </Box>
+        </Box>
+        )
+    }
+    
     function handleSelectFile(event) {
         const file = event.target.files[0];
         if (file.type !== "application/pdf") {

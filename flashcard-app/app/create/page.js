@@ -2,8 +2,10 @@
 import { useUser } from '@clerk/nextjs'
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { db } from "@/firebase";
+import { collection, doc, getDoc, writeBatch } from 'firebase/firestore';
 import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
-import { AppBar, Box, Button, Divider, IconButton, Paper, Toolbar, TextField, Typography} from "@mui/material";
+import { AppBar, Box, Button, CircularProgress, Divider, IconButton, Paper, Toolbar, TextField, Typography} from "@mui/material";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 import DeleteIcon from '@mui/icons-material/Delete'
 
@@ -19,6 +21,32 @@ export default function CreateFlashcards() {
             router.push('/sign-in');
         }
     }, [isLoaded, isSignedIn, router])
+
+    if (!isLoaded || !isSignedIn) {
+       return (
+        <Box>
+            <AppBar position="fixed" sx={{ backgroundColor: 'white', boxShadow: 'none' }}>
+                <Toolbar sx={{ maxWidth: 1200, mx: 'auto', width: '100%' }}>
+                    <Typography component = "a" variant = 'h5' href="/" sx = {{ fontSize: 30, fontWeight: 'bold', color: '#4272FF', cursor: 'pointer', textDecoration: 'none'}} >
+                    Cardify
+                    </Typography>
+                    <Box sx={{ flexGrow: 1}} />
+                    <SignedOut>
+                    <Button variant="contained" href="/sign-in" sx={{ borderRadius: 3, textTransform: 'none', color: 'white', backgroundColor: '#4272FF'}}>Log In</Button>
+                    <Button variant="contained" href="/sign-up" sx={{ ml: 2, borderRadius: 3, textTransform: 'none', color: 'white', backgroundColor: '#4272FF' }}>Sign Up</Button>
+                    </SignedOut>
+                    <SignedIn>
+                    <UserButton />
+                    </SignedIn>
+                </Toolbar>
+            </AppBar>
+            <Toolbar />
+            <Box sx={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'white'}} >
+                <CircularProgress color="black"/>
+            </Box>
+        </Box>
+       )
+    }
 
     function handleUpdateName(event) {
         setDeckName(event.target.value);
@@ -38,6 +66,32 @@ export default function CreateFlashcards() {
         const cards = [...flashcards];
         cards.splice(index, 1);
         setFlashcards(cards);
+    }
+
+    const handleSaveCards = async() => {
+        if (!deckName.trim()) {
+            window.alert('Please enter a deck name.');
+            return;
+        }
+        const batch = writeBatch(db);
+        const userReference = doc(collection(db, 'users'), user.emailAddresses[0].emailAddress);
+        
+        const docSnapshot = await getDoc(userReference);
+        if (docSnapshot.exists()) {
+            const collections = docSnapshot.data().flashcards || [];
+            batch.set(userReference, { flashcards: [...collections, { deckName: deckName}]}, { merge: true })
+        } else {
+            batch.set(userReference, { flashcards: [{ deckName: deckName } ]})
+        }
+
+        const deckReference = collection(userReference, deckName);
+        flashcards.forEach((flashcard) => {
+            const flashcardReference = doc(deckReference);
+            batch.set(flashcardReference, { front: flashcard.front.trim(), back: flashcard.back.trim()})
+        })
+
+        await batch.commit();
+        router.push('/view_flashcards');
     }
 
     return (
@@ -130,7 +184,7 @@ export default function CreateFlashcards() {
                     </Box>
                     <Button 
                         variant="contained"
-                        disabled={!deckName.trim()}
+                        onClick={handleSaveCards}
                         sx={{ 
                             mt: 1, 
                             alignSelf: 'center',

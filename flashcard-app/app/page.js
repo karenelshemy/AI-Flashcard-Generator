@@ -38,7 +38,7 @@ export default function Home() {
           <Typography sx={{ fontSize: 20, mt: 1 }}>
             Type in any topic or upload a file you want to learn, and with just one click, let AI generate flashcards within seconds.
           </Typography>
-          <Button variant="contained" href="/flashcard-generator" sx={{ mt: 2, padding: '10px 20px', borderRadius: 3, textTransform: 'none', color: 'white', backgroundColor: 'black'}}>Try It Out</Button>
+          <Button variant="contained" href="/flashcard_generator" sx={{ mt: 2, padding: '10px 20px', borderRadius: 3, textTransform: 'none', color: 'white', backgroundColor: 'black'}}>Try It Out</Button>
         </Box>
       </Box>
       <Box sx={{ mt: 8, mx: 'auto', maxWidth: 1000, p: 2, borderRadius: 5, background: 'linear-gradient(to bottom right, #89CFF0, #A084E8)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 4 }}>
@@ -56,15 +56,18 @@ export default function Home() {
       <Box sx={{ mt: 8, mx: 'auto', maxWidth: 1000, p: 2, borderRadius: 5, background: 'linear-gradient(to bottom right, #89CFF0, #A084E8)', display: 'flex', alignItems: 'center' }}>
         <Box component="img" src="null" sx={{ width: 400, height: 300, borderRadius: 3, boxShadow: 4, objectFit: 'cover' }} />
         <Box sx={{ textAlign: 'center', mt: -1 }}> 
-          <Typography sx={{ fontSize: 30, fontWeight: 'bold', ml: 15 }}>
-            See Your Flashcards
+          <Typography sx={{ fontSize: 30, fontWeight: 'bold', ml: 17 }}>
+            Your Flashcards
           </Typography>
           <Typography sx={{ fontSize: 20, mt: 1, ml: 17 }}>
             View, manage, and study all your<br />
             flashcard decks in one place.
           </Typography>
-          <Button variant="contained" sx={{ mt: 2, ml: 15, padding: '10px 20px', borderRadius: 3, textTransform: 'none', color: 'white', backgroundColor: 'black'}}> View </Button>
+          <Button variant="contained" href="/view_flashcards" sx={{ mt: 2, ml: 15, padding: '10px 20px', borderRadius: 3, textTransform: 'none', color: 'white', backgroundColor: 'black'}}> View </Button>
         </Box>
+      </Box>
+      <Box sx={{ p: 2, textAlign: 'center', color: 'black' }} >
+        <Typography variant="body2">© {new Date().getFullYear()} Cardify. All rights reserved.</Typography>
       </Box>
     </Box> 
   )
