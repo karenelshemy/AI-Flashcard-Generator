@@ -1,14 +1,23 @@
 'use client' 
-import { RedirectToUserProfile, useUser } from '@clerk/nextjs'
-import { useState } from 'react';
+import { useUser } from '@clerk/nextjs'
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 import { AppBar, Box, Button, Toolbar, TextField, Typography} from "@mui/material";
 
 export default function FlashcardGenerator() {
+    const { isSignedIn, user, isLoaded } = useUser(); 
+    const router = useRouter();
     const [file, setFile] = useState("");
     const [topic, setTopic] = useState("");
     const [count, setCount] = useState("");
     const [isCountIncorrect, setIsCountIncorrect] = useState(false);
+
+    useEffect(() => {
+        if (isLoaded && !isSignedIn) {
+            router.push('/sign-in');
+        }
+    }, [isLoaded, isSignedIn, router])
 
     function handleSelectFile(event) {
         const file = event.target.files[0];

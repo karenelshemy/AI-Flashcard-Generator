@@ -36,7 +36,7 @@ export default function Home() {
             AI Flashcard Generator
           </Typography>
           <Typography sx={{ fontSize: 20, mt: 1 }}>
-            Type in any topic you want to learn, and with just one click, let AI generate flashcards within seconds.
+            Type in any topic or upload a file you want to learn, and with just one click, let AI generate flashcards within seconds.
           </Typography>
           <Button variant="contained" href="/flashcard-generator" sx={{ mt: 2, padding: '10px 20px', borderRadius: 3, textTransform: 'none', color: 'white', backgroundColor: 'black'}}>Try It Out</Button>
         </Box>
@@ -49,7 +49,7 @@ export default function Home() {
           <Typography sx={{ fontSize: 20, mt: 1, lineHeight: 1.5 }}>
             Turn your notes into personalized flashcards tailored to your study needs.
           </Typography>
-          <Button variant="contained" sx={{ mt: 2, padding: '10px 20px', borderRadius: 3, textTransform: 'none', color: 'white', backgroundColor: 'black'}}> Get Started </Button>
+          <Button variant="contained" href="/create" sx={{ mt: 2, padding: '10px 20px', borderRadius: 3, textTransform: 'none', color: 'white', backgroundColor: 'black'}}> Get Started </Button>
         </Box>
         <Box component="img" src="null" sx={{ width: 450, height: 300, borderRadius: 3, boxShadow: 4, objectFit: 'cover', flexShrink: 0 }} />
       </Box>
