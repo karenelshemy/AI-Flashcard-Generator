@@ -85,9 +85,9 @@ export default function CreateFlashcards() {
         }
 
         const deckReference = collection(userReference, deckName);
-        flashcards.forEach((flashcard) => {
+        flashcards.forEach((flashcard, index) => {
             const flashcardReference = doc(deckReference);
-            batch.set(flashcardReference, { front: flashcard.front.trim(), back: flashcard.back.trim()})
+            batch.set(flashcardReference, { front: flashcard.front.trim(), back: flashcard.back.trim(), index: index})
         })
 
         await batch.commit();
@@ -95,110 +95,110 @@ export default function CreateFlashcards() {
     }
 
     return (
-            <Box sx={{ pb: 3 }} > 
-                <AppBar position="fixed" sx={{ backgroundColor: 'white', boxShadow: 'none' }}>
-                    <Toolbar sx={{ maxWidth: 1200, mx: 'auto', width: '100%' }}>
-                        <Typography component = "a" variant = 'h5' href="/" sx = {{ fontSize: 30, fontWeight: 'bold', color: '#4272FF', cursor: 'pointer', textDecoration: 'none'}} >
-                        Cardify
-                        </Typography>
-                        <Box sx={{ flexGrow: 1}} />
-                        <SignedOut>
-                        <Button variant="contained" href="/sign-in" sx={{ borderRadius: 3, textTransform: 'none', color: 'white', backgroundColor: '#4272FF'}}>Log In</Button>
-                        <Button variant="contained" href="/sign-up" sx={{ ml: 2, borderRadius: 3, textTransform: 'none', color: 'white', backgroundColor: '#4272FF' }}>Sign Up</Button>
-                        </SignedOut>
-                        <SignedIn>
-                        <UserButton />
-                        </SignedIn>
-                    </Toolbar>
-                </AppBar>
-                <Toolbar />
-                <Typography sx={{ ml: 2, fontSize: 40, fontWeight: 'bold', textAlign: 'center', mt: 5 }}> Create Your Own Flashcards </Typography>
-                <Box sx={{ mt: 4, mx: 'auto', width: 1200, minHeight: 600, borderRadius: 10, background: 'linear-gradient(to bottom right, #89CFF0, #A084E8)',  display: 'flex', flexDirection:'column', gap: 2, pb: 2 }}>
-                    <Box sx={{ display: 'flex', justifyContent: 'center', borderRadius: 5, mt: 2 }} 
-                        >
-                            <TextField 
-                                placeholder="Deck Name" 
-                                value={deckName}
-                                onChange={handleUpdateName}
-                                sx={{
-                                    width: 700,
-                                    backgroundColor: 'white',
-                                    borderRadius: 5,
-                                    '& .MuiOutlinedInput-notchedOutline' : {
-                                        border: 'none'
-                                    },
-                                    '& input': {
-                                        fontSize: 20, 
-                                        fontWeight: 600,
-                                        padding: '17px 20px'
-                                    }
-                                }}
-                            />
-                    </Box>
-                    {flashcards.map((flashcard, index) => (
-                        <Box key={index} sx={{ display: 'flex', alignItems: 'center', mb: 2, width: '100%', px: 2 }}
-                        >
-                            <Paper sx={{ width: 900, p: 2, borderRadius: 3, display: 'flex', flex: 1 }}
-                            >
-                                <Box sx={{ display: 'flex', flex: 1 }} >
-                                    <Box sx={{ flex: 1, mr: 2 }} >
-                                        <Typography sx={{ fontSize: 15, fontWeight: 'bold', mb: 1 }}> FRONT </Typography>
-                                        <TextField
-                                            multiline
-                                            rows={3}
-                                            fullWidth
-                                            value={flashcard.front}
-                                            onChange={(event) => handleUpdateCard(index, 'front', event.target.value)}
-                                        />
-                                    </Box>
-                                    <Divider orientation="vertical" flexItem />
-                                    <Box sx={{ flex: 1, ml: 2 }}>
-                                        <Typography sx={{ fontSize: 15, fontWeight: 'bold', mb: 1 }}> BACK </Typography>
-                                        <TextField
-                                            multiline
-                                            rows={3}
-                                            fullWidth
-                                            value={flashcard.back}
-                                            onChange={(event) => handleUpdateCard(index, 'back', event.target.value)}
-                                        />
-                                    </Box>
-                                </Box>
-                            </Paper>
-                            <IconButton sx={{ ml : 1 }} onClick={() => handleDeleteCard(index)} >
-                                <DeleteIcon fontSize="large" sx={{ color: 'black' }} /> 
-                            </IconButton>
-                        </Box>
-                    ))}
-                    <Box sx={{ display: 'flex', justifyContent: 'center'}}>
-                        <IconButton 
-                            onClick={handleNewCard}
-                            sx={{ 
+        <Box sx={{ pb: 3 }} > 
+            <AppBar position="fixed" sx={{ backgroundColor: 'white', boxShadow: 'none' }}>
+                <Toolbar sx={{ maxWidth: 1200, mx: 'auto', width: '100%' }}>
+                    <Typography component = "a" variant = 'h5' href="/" sx = {{ fontSize: 30, fontWeight: 'bold', color: '#4272FF', cursor: 'pointer', textDecoration: 'none'}} >
+                    Cardify
+                    </Typography>
+                    <Box sx={{ flexGrow: 1}} />
+                    <SignedOut>
+                    <Button variant="contained" href="/sign-in" sx={{ borderRadius: 3, textTransform: 'none', color: 'white', backgroundColor: '#4272FF'}}>Log In</Button>
+                    <Button variant="contained" href="/sign-up" sx={{ ml: 2, borderRadius: 3, textTransform: 'none', color: 'white', backgroundColor: '#4272FF' }}>Sign Up</Button>
+                    </SignedOut>
+                    <SignedIn>
+                    <UserButton />
+                    </SignedIn>
+                </Toolbar>
+            </AppBar>
+            <Toolbar />
+            <Typography sx={{ ml: 2, fontSize: 40, fontWeight: 'bold', textAlign: 'center', mt: 5 }}> Create Your Own Flashcards </Typography>
+            <Box sx={{ mt: 4, mx: 'auto', width: 1200, minHeight: 600, borderRadius: 10, background: 'linear-gradient(to bottom right, #89CFF0, #A084E8)',  display: 'flex', flexDirection:'column', gap: 2, pb: 2 }}>
+                <Box sx={{ display: 'flex', justifyContent: 'center', borderRadius: 5, mt: 2 }} 
+                    >
+                        <TextField 
+                            placeholder="Deck Name" 
+                            value={deckName}
+                            onChange={handleUpdateName}
+                            sx={{
+                                width: 700,
                                 backgroundColor: 'white',
-                                width: 60, 
-                                height: 60,
-                                color: 'black'
+                                borderRadius: 5,
+                                '& .MuiOutlinedInput-notchedOutline' : {
+                                    border: 'none'
+                                },
+                                '& input': {
+                                    fontSize: 20, 
+                                    fontWeight: 600,
+                                    padding: '17px 20px'
+                                }
                             }}
-                            >
-                                <AddCircleOutlineIcon fontSize="large" />
+                        />
+                </Box>
+                {flashcards.map((flashcard, index) => (
+                    <Box key={index} sx={{ display: 'flex', alignItems: 'center', mb: 2, width: '100%', px: 2 }}
+                    >
+                        <Paper sx={{ width: 900, p: 2, borderRadius: 3, display: 'flex', flex: 1 }}
+                        >
+                            <Box sx={{ display: 'flex', flex: 1 }} >
+                                <Box sx={{ flex: 1, mr: 2 }} >
+                                    <Typography sx={{ fontSize: 15, fontWeight: 'bold', mb: 1 }}> FRONT </Typography>
+                                    <TextField
+                                        multiline
+                                        rows={3}
+                                        fullWidth
+                                        value={flashcard.front}
+                                        onChange={(event) => handleUpdateCard(index, 'front', event.target.value)}
+                                    />
+                                </Box>
+                                <Divider orientation="vertical" flexItem />
+                                <Box sx={{ flex: 1, ml: 2 }}>
+                                    <Typography sx={{ fontSize: 15, fontWeight: 'bold', mb: 1 }}> BACK </Typography>
+                                    <TextField
+                                        multiline
+                                        rows={3}
+                                        fullWidth
+                                        value={flashcard.back}
+                                        onChange={(event) => handleUpdateCard(index, 'back', event.target.value)}
+                                    />
+                                </Box>
+                            </Box>
+                        </Paper>
+                        <IconButton sx={{ ml : 1 }} onClick={() => handleDeleteCard(index)} >
+                            <DeleteIcon fontSize="large" sx={{ color: 'black' }} /> 
                         </IconButton>
                     </Box>
-                    <Button 
-                        variant="contained"
-                        onClick={handleSaveCards}
+                ))}
+                <Box sx={{ display: 'flex', justifyContent: 'center'}}>
+                    <IconButton 
+                        onClick={handleNewCard}
                         sx={{ 
-                            mt: 1, 
-                            alignSelf: 'center',
-                            backgroundColor: 'black',
-                            fontSize: 15,
-                            width: 120, 
-                            height: 40,
-                            borderRadius: 3,
-                            textTransform: 'none'
-                    }}
-                    >   
-                        Save Deck
-                    </Button>
+                            backgroundColor: 'white',
+                            width: 60, 
+                            height: 60,
+                            color: 'black'
+                        }}
+                        >
+                            <AddCircleOutlineIcon fontSize="large" />
+                    </IconButton>
                 </Box>
+                <Button 
+                    variant="contained"
+                    onClick={handleSaveCards}
+                    sx={{ 
+                        mt: 1, 
+                        alignSelf: 'center',
+                        backgroundColor: 'black',
+                        fontSize: 15,
+                        width: 120, 
+                        height: 40,
+                        borderRadius: 3,
+                        textTransform: 'none'
+                }}
+                >   
+                    Save Deck
+                </Button>
             </Box>
+        </Box>
     )
 }
