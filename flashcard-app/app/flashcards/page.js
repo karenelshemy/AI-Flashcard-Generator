@@ -81,16 +81,16 @@ export default function Flashcards() {
 
     const handleSelectPrevious = () => {
         if (currentIndex > 0) {
+            setFlipped(false);
             setCurrentIndex(currentIndex - 1);
         }
-        setFlipped(false);
     }
 
     const handleSelectNext = () => {
         if (currentIndex < flashcards.length - 1) {
+            setFlipped(false);
             setCurrentIndex(currentIndex + 1);
         }
-        setFlipped(false);
     }
 
     return (
@@ -112,89 +112,108 @@ export default function Flashcards() {
             </AppBar>
             <Toolbar />
             <Typography sx={{ fontSize: 40, fontWeight: 'bold', textAlign: 'center', mt: 5 }}> {deckName} </Typography>
-            <Box sx={{ mt: 4, mx: 'auto', width: 1200, minHeight: 600, borderRadius: 10, background: 'linear-gradient(to bottom right, #89CFF0, #A084E8)',  display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative', pb: 2 }}>
+            <Box sx={{ mt: 4, mx: 'auto', width: 1200, minHeight: 600, borderRadius: 10, background: 'linear-gradient(to bottom right, #89CFF0, #A084E8)',  display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', pt: 4, pb: 4 }}>
                 {flashcards.length === 0 ? 
                     (<Typography sx={{ color: 'white', fontSize: 28, fontWeight: 'bold', textAlign: 'center' }} > No flashcards to view in this deck. </Typography>) : 
-                    (<Box onClick={() => setFlipped(!flipped)} sx={{ perspective: 1000, mb: 30, width: 700, height: 300 }} >
-                        <Box 
-                            sx={{ 
-                                width: '100%',
-                                height: '100%',
-                                cursor: 'pointer',
-                                textAlign: 'center',
-                                transition: 'transform 0.6s',
-                                transformStyle: 'preserve-3d',
-                                transform: flipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
-                                position: 'relative'
-                            }}
-                        >
+                    (<>
+                        <Box key={currentIndex} onClick={() => setFlipped(!flipped)} sx={{ perspective: 1000, mb: 10, width: 700, height: 300 }} >
                             <Box 
-                                sx={{
+                                sx={{ 
                                     width: '100%',
                                     height: '100%',
-                                    backgroundColor: 'white',
-                                    position: 'absolute',
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                    fontSize: 25, 
-                                    borderRadius: 5,
-                                    boxShadow: 6,
+                                    cursor: 'pointer',
                                     textAlign: 'center',
-                                    overflowWrap: 'break-word',
-                                    overflow: 'hidden'
+                                    transition: 'transform 0.6s',
+                                    transformStyle: 'preserve-3d',
+                                    transform: flipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
+                                    position: 'relative'
                                 }}
-                            > 
-                                {currentFlashcard.front}
-                            </Box>
-                            <Box 
-                                sx={{
-                                    width: '100%',
-                                    height: '100%',
-                                    backgroundColor: 'white',
-                                    position: 'absolute',
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                    fontSize: 25,
-                                    borderRadius: 5,
-                                    boxShadow: 6,
-                                    backfaceVisibility: 'hidden',
-                                    transform: 'rotateY(180deg)',
-                                    textAlign: 'center',
-                                    overflowWrap: 'break-word',
-                                    overflow: 'hidden'
-                                }}
-                                >
-                                    {currentFlashcard.back}
+                            >
+                                <Box 
+                                    sx={{
+                                        width: '100%',
+                                        height: '100%',
+                                        backgroundColor: 'white',
+                                        position: 'absolute',
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        fontSize: 25, 
+                                        borderRadius: 5,
+                                        boxShadow: 6,
+                                        textAlign: 'center',
+                                        overflowWrap: 'break-word',
+                                        overflow: 'hidden'
+                                    }}
+                                > 
+                                    {currentFlashcard.front}
+                                </Box>
+                                <Box 
+                                    sx={{
+                                        width: '100%',
+                                        height: '100%',
+                                        backgroundColor: 'white',
+                                        position: 'absolute',
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        fontSize: 25,
+                                        borderRadius: 5,
+                                        boxShadow: 6,
+                                        backfaceVisibility: 'hidden',
+                                        transform: 'rotateY(180deg)',
+                                        textAlign: 'center',
+                                        overflowWrap: 'break-word',
+                                        overflow: 'hidden'
+                                    }}
+                                    >
+                                        {currentFlashcard.back}
+                                    </Box>
                                 </Box>
                             </Box>
+                            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: 2}} >
+                            <Box sx={{ display: 'flex', gap: 4, mb: 3}}>
+                                <IconButton 
+                                    onClick={handleSelectPrevious} 
+                                    disabled={currentIndex === 0}
+                                    sx={{
+                                        backgroundColor: 'white',
+                                        color: 'black',
+                                        boxShadow: 3
+                                    }}
+                                >
+                                    <ArrowBackIcon fontSize="large" />
+                                </IconButton>
+                                <IconButton 
+                                    onClick={handleSelectNext} 
+                                    disabled={currentIndex === flashcards.length - 1}
+                                    sx={{
+                                        backgroundColor: 'white',
+                                        color: 'black',
+                                        boxShadow: 3
+                                    }}
+                                >
+                                    <ArrowForwardIcon fontSize="large" />
+                                </IconButton>
+                            </Box>
+                            <Box>
+                                <Button 
+                                    variant="contained"
+                                    onClick={() => router.push(`/flashcards/learn?id=${flashcardDeckId}`)}
+                                    sx={{
+                                        width: 150,
+                                        height: 50,
+                                        backgroundColor: 'black',
+                                        borderRadius: 3,
+                                        textTransform: 'none'
+                                    }}
+                                > 
+                                    LEARN DECK
+                                </Button>
+                            </Box>
                         </Box>
-                    )}
-                <Box sx={{ display: 'flex', position: 'absolute', mt: 30, gap: 4}}>
-                    <IconButton 
-                        onClick={handleSelectPrevious} 
-                        disabled={currentIndex === 0}
-                        sx={{
-                            backgroundColor: 'white',
-                            color: 'black',
-                            boxShadow: 3
-                        }}
-                    >
-                        <ArrowBackIcon fontSize="large" />
-                    </IconButton>
-                    <IconButton 
-                        onClick={handleSelectNext} 
-                        disabled={currentIndex === flashcards.length - 1}
-                        sx={{
-                            backgroundColor: 'white',
-                            color: 'black',
-                            boxShadow: 3
-                        }}
-                    >
-                        <ArrowForwardIcon fontSize="large" />
-                    </IconButton>
-                </Box>
+                    </>
+                )}
             </Box>
         </Box>
     )
